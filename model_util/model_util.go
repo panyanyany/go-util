@@ -1,7 +1,7 @@
 package model_util
 
 import (
-	"eubox-server/util/gin_util"
+	"tugou-hunter/util/gin_util"
 
 	"gorm.io/gorm"
 )

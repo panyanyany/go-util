@@ -4,8 +4,10 @@ import (
 	"fmt"
 	"os"
 	"path"
+	"path/filepath"
 
-	"eos-arb/util/ip_util"
+	"tugou-hunter/util/ip_util"
+	"tugou-hunter/util/os_util"
 
 	"github.com/cihub/seelog"
 )
@@ -55,7 +57,8 @@ func SetupSeelog() {
 		panic(err)
 	}
 	// seelog配置，用于输出调试信息
-	logger, err := seelog.LoggerFromConfigAsFile("config/seelog.xml")
+	ex := filepath.Dir(os_util.MustGetExecutableDir())
+	logger, err := seelog.LoggerFromConfigAsFile(path.Join(ex, "config/seelog.xml"))
 	if err != nil {
 		panic(err)
 	}
