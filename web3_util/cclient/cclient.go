@@ -7,8 +7,6 @@ import (
 	"sync"
 	"time"
 
-	"tugou-hunter/repo/config"
-
 	"github.com/cihub/seelog"
 	"github.com/go-redis/redis/v8"
 	"github.com/panyanyany/go-web3/jsonrpc"
@@ -39,14 +37,14 @@ func (r *CClient) Close() error {
 	return nil
 }
 
-func New(rdb *redis.Client, redisTimeout time.Duration) (r *CClient) {
+func New(rdb *redis.Client, redisTimeout time.Duration, endpoints []string) (r *CClient) {
 	r = new(CClient)
 	r.RedisTimeout = redisTimeout
 	r.Rdb = rdb
 	r.FindLock = sync.Mutex{}
 	r.EnableCache = rdb != nil && redisTimeout.Seconds() != 0
 	r.ReqInterval = 100
-	r.QueryApiList = config.Inst.Endpoints
+	r.QueryApiList = endpoints
 	r.PostApiList = r.QueryApiList
 	r.HistoryApiList = r.QueryApiList
 

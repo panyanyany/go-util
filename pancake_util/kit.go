@@ -3,8 +3,8 @@ package pancake_util
 import (
 	"fmt"
 
-	"tugou-hunter/util/web3_util/bsc"
-	"tugou-hunter/util/web3_util/contract"
+	"go-util/web3_util/bsc"
+	"go-util/web3_util/contract"
 
 	"github.com/cihub/seelog"
 	"github.com/ethereum/go-ethereum/common"

@@ -3,7 +3,7 @@ package token
 import (
 	"math/big"
 
-	"tugou-hunter/util/go_util"
+	"go-util/go_util"
 
 	"github.com/panyanyany/pancakeswap-sdk-go/entities"
 )

@@ -3,6 +3,7 @@ package json_util
 import (
 	"encoding/json"
 	"math"
+	"strconv"
 	"strings"
 )
 
@@ -43,6 +44,16 @@ func (r *StrOrFloat64) UnmarshalJSON(data []byte) error {
 	}
 	if strings.Contains(sysLpStr, "\"") {
 		sysLpStr = strings.ReplaceAll(sysLpStr, "\"", "")
+		//if sysLpStr == "-" {
+		//	r.Value = math.NaN()
+		//	return nil
+		//}
+		var err error
+		r.Value, err = strconv.ParseFloat(sysLpStr, 64)
+		if err != nil {
+			r.Value = math.NaN()
+		    return nil
+		}
 	}
 
 	return json.Unmarshal([]byte(sysLpStr), &r.Value)

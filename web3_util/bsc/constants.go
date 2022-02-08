@@ -1,7 +1,7 @@
 package bsc
 
 import (
-	"tugou-hunter/util/web3_util/contract"
+	"go-util/web3_util/contract"
 
 	"github.com/ethereum/go-ethereum/common"
 )

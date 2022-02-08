@@ -3,7 +3,7 @@ package pancake_util
 import (
 	"math/big"
 
-	"tugou-hunter/util/web3_util/contract"
+	"go-util/web3_util/contract"
 
 	"github.com/panyanyany/go-web3"
 )

@@ -5,11 +5,11 @@ import (
 	"math/big"
 	"sync"
 
-	"tugou-hunter/util/go_util"
-	"tugou-hunter/util/web3_util"
-	"tugou-hunter/util/web3_util/bsc"
-	"tugou-hunter/util/web3_util/cclient"
-	"tugou-hunter/util/web3_util/contract"
+	"go-util/go_util"
+	"go-util/web3_util"
+	"go-util/web3_util/bsc"
+	"go-util/web3_util/cclient"
+	"go-util/web3_util/contract"
 
 	"github.com/cihub/seelog"
 	"github.com/ethereum/go-ethereum/common"

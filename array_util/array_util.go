@@ -22,3 +22,12 @@ func IntMin(array []int) int {
 	}
 	return min
 }
+
+func Int64In(search int64, target []int64) bool {
+	for _, i := range target {
+		if i == search {
+			return true
+		}
+	}
+	return false
+}

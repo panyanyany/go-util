@@ -5,9 +5,9 @@ import (
 	"math"
 	"math/big"
 
-	"tugou-hunter/util/struct_util"
-	"tugou-hunter/util/web3_util/bsc"
-	"tugou-hunter/util/web3_util/contract"
+	"go-util/struct_util"
+	"go-util/web3_util/bsc"
+	"go-util/web3_util/contract"
 
 	"github.com/panyanyany/go-web3"
 )

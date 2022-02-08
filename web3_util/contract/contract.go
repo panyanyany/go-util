@@ -6,7 +6,7 @@ import (
 	"io/ioutil"
 	"path"
 
-	"tugou-hunter/util/os_util"
+	"go-util/os_util"
 
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/panyanyany/go-web3"

@@ -6,8 +6,8 @@ import (
 	"path"
 	"path/filepath"
 
-	"tugou-hunter/util/ip_util"
-	"tugou-hunter/util/os_util"
+	"go-util/ip_util"
+	"go-util/os_util"
 
 	"github.com/cihub/seelog"
 )

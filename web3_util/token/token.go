@@ -1,7 +1,7 @@
 package token
 
 import (
-	"tugou-hunter/util/go_util"
+	"go-util/go_util"
 
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/panyanyany/pancakeswap-sdk-go/constants"

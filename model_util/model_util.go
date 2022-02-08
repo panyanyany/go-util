@@ -1,7 +1,7 @@
 package model_util
 
 import (
-	"tugou-hunter/util/gin_util"
+	"go-util/gin_util"
 
 	"gorm.io/gorm"
 )
