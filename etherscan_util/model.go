@@ -14,8 +14,9 @@ import (
 type TxTableItem struct {
 	Tx     string
 	Method string
+	From   string
 	Value  float64
-	Time  time.Time
+	Time   time.Time
 }
 
 func NewTxTableItemFromSelection(selection *goquery.Selection) (r *TxTableItem, err error) {
@@ -38,11 +39,15 @@ func NewTxTableItemFromSelection(selection *goquery.Selection) (r *TxTableItem, 
 			}
 			tm, err := dateparse.ParseStrict(dtStr)
 			if err != nil {
-			    err = fmt.Errorf("dateparse.ParseStrict(tx time): %w", err)
-			    seelog.Error(err)
-			    return
+				err = fmt.Errorf("dateparse.ParseStrict(tx time): %w", err)
+				seelog.Error(err)
+				return
 			}
 			r.Time = tm.In(time.Local)
+			break
+		case 6: // method
+			span := s.Find("span")
+			r.From = span.Text()
 			break
 		case 9: // value
 			valStr := strings.Split(s.Text(), " ")[0]
