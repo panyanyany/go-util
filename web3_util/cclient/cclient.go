@@ -1,4 +1,5 @@
 package cclient
+// concurrency client
 
 import (
 	"context"
@@ -44,8 +45,7 @@ func New(rdb *redis.Client, redisTimeout time.Duration) (r *CClient) {
 	r.Rdb = rdb
 	r.FindLock = sync.Mutex{}
 	r.EnableCache = rdb != nil && redisTimeout.Seconds() != 0
-	r.ReqInterval = 500
-	// https://gist.github.com/akme/89a4e596587cb605b530bd825994a0db
+	r.ReqInterval = 100
 	r.QueryApiList = config.Inst.Endpoints
 	r.PostApiList = r.QueryApiList
 	r.HistoryApiList = r.QueryApiList
@@ -87,6 +87,7 @@ func New(rdb *redis.Client, redisTimeout time.Duration) (r *CClient) {
 		if err != nil {
 			panic(err)
 		}
+		//api := jsonrpc.Eth{Provider: r}
 		if r.Endpoints == nil {
 			r.Endpoints = api.Endpoints
 		}
@@ -143,7 +144,7 @@ func (r *CClient) Call(method string, out interface{}, params ...interface{}) (e
 	defer r.ReleaseLock(baseUrl)
 
 	api := r.Clients[baseUrl]
-	seelog.Debugf("using url: %v", baseUrl)
+	seelog.Debugf("using url: %v, call=%v", baseUrl, method)
 
 	err = api.Call(method, out, params...)
 	return

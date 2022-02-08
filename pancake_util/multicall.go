@@ -141,6 +141,7 @@ func (mc *MultiCallRepo) GetPairInfoWithPrice(pairAddress string) (*Pair, error)
 	    err = fmt.Errorf("struct_util.Map2Struct: %w", err)
 	    return nil, err
 	}
+	pair.ToHuman()
 
 	return &pair, err
 }

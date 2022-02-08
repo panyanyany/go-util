@@ -52,14 +52,20 @@ func (t *Tx) Validate() (err error) {
 	return
 }
 
+func (t *Tx) SetFrom(from web3.Address) *Tx {
+	t.From = from
+	return t
+}
+
 func (t *Tx) SetMethod(method string) *Tx {
 	t.Method = method
 	return t
 }
 
 func (t *Tx) SetContract(c *Contract) *Tx {
+	to := web3.HexToAddress(c.Address.String())
 	t.Contract = c
-	t.To = &c.Address
+	t.To = &to
 	return t
 }
 
@@ -90,6 +96,10 @@ func (t *Tx) estimateGas() (uint64, error) {
 		Data:  t.Input,
 		Value: t.Value,
 	}
+	//fmt.Printf("callMsg: from=%v\n", msg.From.String())
+	//fmt.Printf("callMsg: to=%v\n", msg.To.String())
+	//fmt.Printf("callMsg: data=%v\n", msg.Data)
+	//fmt.Printf("callMsg: value=%v\n", msg.Value)
 	return t.Contract.Provider.EstimateGas(msg)
 }
 
