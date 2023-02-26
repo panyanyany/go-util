@@ -1,69 +1,65 @@
 package log_util
 
 import (
-	"fmt"
-	"os"
-	"path"
-	"path/filepath"
+    "fmt"
+    "github.com/panyanyany/go-util/ip_util"
+    "os"
+    "path"
 
-	"go-util/ip_util"
-	"go-util/os_util"
-
-	"github.com/cihub/seelog"
+    "github.com/cihub/seelog"
 )
 
 // custom formatter，显示进程名
 func createProcessFormatter(params string) seelog.FormatterFunc {
-	return func(message string, level seelog.LogLevel, context seelog.LogContextInterface) interface{} {
-		return os.Args[0]
-	}
+    return func(message string, level seelog.LogLevel, context seelog.LogContextInterface) interface{} {
+        return os.Args[0]
+    }
 }
 func createShortProcessFormatter(params string) seelog.FormatterFunc {
-	return func(message string, level seelog.LogLevel, context seelog.LogContextInterface) interface{} {
-		_, filename := path.Split(os.Args[0])
-		return filename
-	}
+    return func(message string, level seelog.LogLevel, context seelog.LogContextInterface) interface{} {
+        _, filename := path.Split(os.Args[0])
+        return filename
+    }
 }
 
 var ip string
 
 func createIpFormatter(params string) seelog.FormatterFunc {
-	return func(message string, level seelog.LogLevel, context seelog.LogContextInterface) interface{} {
-		if ip != "" {
-			return ip
-		}
-		ip, err := ip_util.GetMyIP()
-		if err != nil {
-			ip = fmt.Sprintf("<IP:%v>", err)
-			return ip
-		}
-		return ip
-	}
+    return func(message string, level seelog.LogLevel, context seelog.LogContextInterface) interface{} {
+        if ip != "" {
+            return ip
+        }
+        ip, err := ip_util.GetMyIP()
+        if err != nil {
+            ip = fmt.Sprintf("<IP:%v>", err)
+            return ip
+        }
+        return ip
+    }
 }
 
 func SetupSeelog() {
-	var err error
-	// custom formatter，显示进程名
-	err = seelog.RegisterCustomFormatter("Process", createProcessFormatter)
-	if err != nil {
-		panic(err)
-	}
-	err = seelog.RegisterCustomFormatter("Proc", createShortProcessFormatter)
-	if err != nil {
-		panic(err)
-	}
-	err = seelog.RegisterCustomFormatter("IP", createIpFormatter)
-	if err != nil {
-		panic(err)
-	}
-	// seelog配置，用于输出调试信息
-	ex := filepath.Dir(os_util.MustGetExecutableDir())
-	logger, err := seelog.LoggerFromConfigAsFile(path.Join(ex, "config/seelog.xml"))
-	if err != nil {
-		panic(err)
-	}
-	err = seelog.UseLogger(logger)
-	if err != nil {
-		panic(err)
-	}
+    var err error
+    // custom formatter，显示进程名
+    err = seelog.RegisterCustomFormatter("Process", createProcessFormatter)
+    if err != nil {
+        panic(err)
+    }
+    err = seelog.RegisterCustomFormatter("Proc", createShortProcessFormatter)
+    if err != nil {
+        panic(err)
+    }
+    err = seelog.RegisterCustomFormatter("IP", createIpFormatter)
+    if err != nil {
+        panic(err)
+    }
+    // seelog配置，用于输出调试信息
+    logger, err := seelog.LoggerFromConfigAsFile("配置/seelog.xml")
+    if err != nil {
+        panic(err)
+    }
+    err = seelog.UseLogger(logger)
+    if err != nil {
+        panic(err)
+    }
 }
