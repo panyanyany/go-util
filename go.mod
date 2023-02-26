@@ -1,3 +1,3 @@
-module go-util
+module github.com/panyanyany/go-util
 
 go 1.16
