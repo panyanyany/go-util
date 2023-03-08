@@ -124,3 +124,11 @@ func AppendFile(p string, data interface{}, options *OutputFileOptions) error {
     err = fp.Close()
     return err
 }
+
+func FileSize(file string) int64 {
+    stat, err := os.Stat(file)
+    if err != nil {
+        panic(err)
+    }
+    return stat.Size()
+}
