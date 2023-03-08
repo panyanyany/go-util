@@ -3,6 +3,7 @@ package file_util
 import (
     "encoding/json"
     "fmt"
+    "io"
     "io/ioutil"
     "os"
     "path/filepath"
@@ -131,4 +132,26 @@ func FileSize(file string) int64 {
         panic(err)
     }
     return stat.Size()
+}
+
+func MoveFile(srcPath, dstPath string) (err error) {
+    srcFile, err := os.OpenFile(srcPath, os.O_RDONLY, 0)
+    if err != nil {
+        return err
+    }
+    defer srcFile.Close()
+
+    // create and open file
+    dstFile, err := os.OpenFile(dstPath, os.O_CREATE|os.O_WRONLY|os.O_TRUNC, 0665)
+    if err != nil {
+        return err
+    }
+    defer dstFile.Close()
+
+    _, err = io.Copy(dstFile, srcFile)
+    if err != nil {
+        return err
+    }
+
+    return os.Remove(srcPath)
 }
